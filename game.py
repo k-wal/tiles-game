@@ -6,17 +6,30 @@ pygame.init()
 # Set up the drawing window
 screen = pygame.display.set_mode([700, 500])
 
-tiles = []
-for i in range(5):
-	for j in range(5):
-		tiles.append(Tile(i, j, 5, 5, 500, 500))
 
+def initialize_tiles():
+	tiles = []
+	for i in range(5):
+		for j in range(5):
+			tiles.append(Tile(i, j, 5, 5, 500, 500))
+	return tiles
+
+def mouse_event_update(tiles, pos):
+	for tile in tiles:
+		tile.click_event(pos)
+
+tiles = initialize_tiles()
 # Run until the user asks to quit
 running = True
 while running:
 
     # Did the user click the window close button?
     for event in pygame.event.get():
+        if event.type == pygame.MOUSEBUTTONUP:
+        	pos = pygame.mouse.get_pos()
+        	print(pos)
+        	mouse_event_update(tiles, pos)
+
         if event.type == pygame.QUIT:
             running = False
 
