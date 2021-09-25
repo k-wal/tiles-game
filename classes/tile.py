@@ -4,6 +4,18 @@ import pygame
 import random
 
 class Tile():
+	total = 30
+	background_choices = []
+	border_choices = []
+	flower_choices = []
+	for i in range(total//2):
+		background_choices.append(random.choice([1,2,3,4]))
+		border_choices.append(random.choice([1,2,3,4,5]))
+		flower_choices.append(random.choice([1,2,3,4,5]))
+	background_choices = background_choices*2
+	border_choices = border_choices*2
+	flower_choices = flower_choices*2
+	
 	# li, lj : length across dimensions
 	# ti, tj : total tiles across dimensions
 	# i, j : index of tile
@@ -17,9 +29,12 @@ class Tile():
 		self.xj_beg = ((j*lj)/tj) + border
 		self.xj_end = self.xj_beg + self.aj
 		self.color = self.random_color()
-		self.background_number = random.choice([1,2,3,4])
-		self.border_number = random.choice([1,2,3,4,5])
-		self.flower_number = random.choice([1,2,3,4,5])
+		self.background_number = random.choice(Tile.background_choices)
+		Tile.background_choices.remove(self.background_number)
+		self.border_number = random.choice(Tile.border_choices)
+		Tile.border_choices.remove(self.border_number)
+		self.flower_number = random.choice(Tile.flower_choices)
+		Tile.flower_choices.remove(self.flower_number)
 		self.is_selected = False
 		self.rect = ''
 

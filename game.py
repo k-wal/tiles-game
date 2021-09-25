@@ -4,14 +4,14 @@ import pygame
 pygame.init()
 
 # Set up the drawing window
-screen = pygame.display.set_mode([700, 500])
+screen = pygame.display.set_mode([700, 600])
 
 
 def initialize_tiles():
 	tiles = []
 	for i in range(5):
-		for j in range(5):
-			tiles.append(Tile(i, j, 5, 5, 500, 500))
+		for j in range(6):
+			tiles.append(Tile(i, j, 5, 6, 500, 600))
 	return tiles
 
 def mouse_event_update(tiles, pos):
@@ -37,8 +37,6 @@ while running:
     screen.fill((255, 255, 255))
 
     # # Draw a solid blue circle in the center
-    # pygame.draw.circle(screen, (0, 0, 255), (250, 250), 75)
-
     for tile in tiles:
     	tile.display(screen)
 
