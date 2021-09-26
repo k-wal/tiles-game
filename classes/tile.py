@@ -15,7 +15,7 @@ class Tile():
 	background_choices = background_choices*2
 	border_choices = border_choices*2
 	flower_choices = flower_choices*2
-	
+
 	# li, lj : length across dimensions
 	# ti, tj : total tiles across dimensions
 	# i, j : index of tile
@@ -29,6 +29,12 @@ class Tile():
 		self.xj_beg = ((j*lj)/tj) + border
 		self.xj_end = self.xj_beg + self.aj
 		self.color = self.random_color()
+		# to change when two matches are selected
+		self.is_background = True
+		self.is_border = True
+		self.is_flower = True
+		self.visible_elements = 3
+
 		self.background_number = random.choice(Tile.background_choices)
 		Tile.background_choices.remove(self.background_number)
 		self.border_number = random.choice(Tile.border_choices)
@@ -43,6 +49,8 @@ class Tile():
 	    return tuple(random.choice(levels) for _ in range(3))
 	
 	def show_background(self, screen):
+		if not self.is_background:
+			return
 		filepath = 'pictures/backgrounds2/' + str(self.background_number) + '.png'
 		image = pygame.image.load(filepath)
 		image = pygame.transform.scale(image, (int(self.ai), int(self.aj)))
@@ -51,12 +59,16 @@ class Tile():
 		self.rect = image.get_rect(topleft=(self.xi_beg, self.xj_beg))
 
 	def show_border(self, screen):
+		if not self.is_border:
+			return
 		filepath = 'pictures/borders/' + str(self.border_number) + '.png'
 		image = pygame.image.load(filepath)
 		image = pygame.transform.scale(image, (int(self.ai), int(self.aj)))
 		screen.blit(image, (self.xi_beg, self.xj_beg))
 
 	def show_flowers(self, screen):
+		if not self.is_flower:
+			return
 		offset = 25
 		filepath = 'pictures/flowers/' + str(self.flower_number) + '.png'
 		image = pygame.image.load(filepath)
@@ -78,8 +90,9 @@ class Tile():
 		self.show_flowers(screen)
 
 	def click_event(self, pos):
-		if self.rect.collidepoint(pos):
+		if self.rect.collidepoint(pos) and not self.is_selected:
 			self.is_selected = True
+			return True
 		else:
-			self.is_selected = False
-
+			# self.is_selected = False
+			return False

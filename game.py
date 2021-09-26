@@ -1,4 +1,4 @@
-from classes.tile import Tile
+from classes.board import Board
 import pygame
 
 pygame.init()
@@ -7,18 +7,8 @@ pygame.init()
 screen = pygame.display.set_mode([700, 600])
 
 
-def initialize_tiles():
-	tiles = []
-	for i in range(5):
-		for j in range(6):
-			tiles.append(Tile(i, j, 5, 6, 500, 600))
-	return tiles
+board = Board(5, 6, 500, 600)
 
-def mouse_event_update(tiles, pos):
-	for tile in tiles:
-		tile.click_event(pos)
-
-tiles = initialize_tiles()
 # Run until the user asks to quit
 running = True
 while running:
@@ -27,8 +17,7 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONUP:
         	pos = pygame.mouse.get_pos()
-        	print(pos)
-        	mouse_event_update(tiles, pos)
+        	board.click_event(pos)
 
         if event.type == pygame.QUIT:
             running = False
@@ -36,9 +25,7 @@ while running:
     # Fill the background with white
     screen.fill((255, 255, 255))
 
-    # # Draw a solid blue circle in the center
-    for tile in tiles:
-    	tile.display(screen)
+    board.display_tiles(screen)
 
     # Flip the display
     pygame.display.flip()
