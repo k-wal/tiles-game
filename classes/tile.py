@@ -78,11 +78,21 @@ class Tile():
 	def show_selection(self, screen):
 		if not self.is_selected:
 			return
+		if self.visible_elements > 0:
+			color = (0,255,255)
+		else:
+			color = (0, 200, 200)
 		offset = 5
-		pygame.draw.rect(screen, (0,255,255), pygame.Rect(self.xi_beg-offset, self.xj_beg-offset, self.ai+2*offset, self.aj+2*offset))
-		pygame.draw.rect(screen, (255,255,255), pygame.Rect(self.xi_beg, self.xj_beg, self.ai, self.aj))
+		pygame.draw.rect(screen, color, pygame.Rect(self.xi_beg-offset, self.xj_beg-offset, self.ai+2*offset, self.aj+2*offset))
+		pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(self.xi_beg, self.xj_beg, self.ai, self.aj))
+
+	def show_solid(self, screen):
+		if self.visible_elements > 0:
+			return
+		pygame.draw.rect(screen, self.color, pygame.Rect(self.xi_beg, self.xj_beg, self.ai, self.aj))
 
 	def display(self, screen):
+		# self.show_solid(screen)
 		self.show_selection(screen)
 		self.show_flowers(screen)
 		self.show_background(screen)
@@ -94,5 +104,4 @@ class Tile():
 			self.is_selected = True
 			return True
 		else:
-			# self.is_selected = False
 			return False

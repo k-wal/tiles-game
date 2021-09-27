@@ -4,7 +4,7 @@ import pygame
 pygame.init()
 
 # Set up the drawing window
-screen = pygame.display.set_mode([700, 600])
+screen = pygame.display.set_mode([770, 600])
 
 
 board = Board(5, 6, 500, 600)
@@ -25,7 +25,7 @@ while running:
     # Fill the background with white
     screen.fill((255, 255, 255))
 
-    board.display_tiles(screen)
+    board.display(screen)
 
     # Flip the display
     pygame.display.flip()
