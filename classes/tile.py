@@ -10,7 +10,7 @@ class Tile():
 	flower_choices = []
 	for i in range(total//2):
 		background_choices.append(random.choice([1,2,3,4]))
-		border_choices.append(random.choice([1,2,3,4,5]))
+		border_choices.append(random.choice([1,2,3,4]))
 		flower_choices.append(random.choice([1,2,3,4,5]))
 	background_choices = background_choices*2
 	border_choices = border_choices*2
